@@ -9,30 +9,38 @@ public class Main2 {
 
 	public static void main(String[] args) {
 
-		ArrayList<Integer> mainArray = new ArrayList<Integer>();
-		mainArray = fillArray();
+		ArrayList<Soldier> mainArray = new ArrayList<Soldier>();
+		fillArray(mainArray);
+		groupMarking(mainArray);
 	}
 
-	private static ArrayList fillArray() {
-		ArrayList<ArrayList<Integer>> testArray = new ArrayList<ArrayList<Integer>>();
+	private static void fillArray(ArrayList<Soldier> mainArray) {
 
-		// int soldierID = 1;
+		ArrayList<Integer> testArray = new ArrayList<Integer>();
+
+		int soldierID = 1;
+		int maxIndex = 0;
 
 		try (Scanner scanner = new Scanner(System.in)) {
 			int soldierCounts = scanner.nextInt();
 			int soldierScores = soldierCounts + 3;
-			
-			// while (soldierCounts > 0) {
-			// soldierID++;
-			// soldierCounts--;
-			// }
 
 			for (int i = 0; i < soldierCounts; i++) {
 				for (int j = 0; j < soldierScores; j++) {
-					//testArray<i<j>> = scanner.nextInt();
+					testArray.add(j, scanner.nextInt());
+					if (testArray.get(j)>maxIndex)
+						maxIndex = testArray.get(j);
 				}
+				Soldier soldier = new Soldier(testArray, soldierID, maxIndex);
+				mainArray.add(soldierID, soldier);
+				soldierID++;
 			}
 		}
-		return testArray;
+	}
+
+	private static void groupMarking(ArrayList<Soldier> mainArray) {
+		for (Soldier test : mainArray) {
+			
+		}
 	}
 }

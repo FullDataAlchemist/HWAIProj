@@ -10,11 +10,16 @@ public class Soldier {
 	private int groupARemain;
 	private int groupBRemain;
 	private int groupCRemain;
+	private int soldierID;
+	private int bestIndex;
 	
 	private ArrayList<Integer> scores;
 
-	Soldier(ArrayList<Integer> scores) {
+	public Soldier(ArrayList<Integer> scores, int soldierID, int bestIndex) {
 		this.setScores(scores);
+		this.setSoldierID(soldierID);
+		this.setBestIndex(bestIndex);
+
 	}
 
 	public ArrayList<Integer> getScores() {
@@ -79,6 +84,22 @@ public class Soldier {
 
 	public void setGroupCRemain(int groupCRemain) {
 		this.groupCRemain = groupCRemain;
+	}
+
+	public int getSoldierID() {
+		return soldierID;
+	}
+
+	public void setSoldierID(int soldierID) {
+		this.soldierID = soldierID;
+	}
+
+	public int getBestIndex() {
+		return bestIndex;
+	}
+
+	public void setBestIndex(int bestScore) {
+		this.bestIndex = bestScore;
 	}
 
 
