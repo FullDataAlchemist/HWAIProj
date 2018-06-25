@@ -14,22 +14,22 @@ public class Soldier {
 	private int bestIndex;
 	private int bestGroupIndex;
 
-	private ArrayList<Integer> scores;
+	private ArrayList<Float> scores;
 
-	public Soldier(ArrayList<Integer> scores, int soldierID, int bestIndex, int bestGroupIndex ) {
+	public Soldier(ArrayList<Float> scores, int soldierID, int bestIndex, int bestGroupIndex ) {
 		this.setScores(scores);
 		this.setSoldierID(soldierID);
 		this.setBestIndex(bestIndex);
 		this.setBestGroupIndex(bestGroupIndex);
 		// this is for newDA
-		this.setGroupNum(bestGroupIndex);
+		//this.setGroupNum(bestGroupIndex);
 	}
 
-	public ArrayList<Integer> getScores() {
+	public ArrayList<Float> getScores() {
 		return scores;
 	}
 
-	public void setScores(ArrayList<Integer> scores) {
+	public void setScores(ArrayList<Float> scores) {
 		this.scores = scores;
 	}
 
