@@ -152,21 +152,30 @@ public class Main2 {
 				gCArray.add(test);
 			}
 		} else {
-			if (swapA > swapB && swapA > swapC && gAArray.size() % 6 != 0) {
-				test.setGroupNum(test.getScores().size() - 2);
-				test.setBestGroupIndex(test.getScores().size() - 2);
-				sumA = swapA + sumA;
-				gAArray.add(test);
+			if (swapA > swapB && swapA > swapC) {
+				if (gAArray.size() % 6 != 0) {
+					test.setGroupNum(test.getScores().size() - 2);
+					test.setBestGroupIndex(test.getScores().size() - 2);
+					sumA = swapA + sumA;
+					gAArray.add(test);
+				} else
+					swapA = 0;
 			} else if (swapB > swapA && swapB > swapC && gBArray.size() % 6 != 0) {
-				test.setGroupNum(test.getScores().size() - 1);
-				test.setBestGroupIndex(test.getScores().size() - 1);
-				sumB = swapB + sumB;
-				gBArray.add(test);
+				if (gBArray.size() % 6 != 0) {
+					test.setGroupNum(test.getScores().size() - 1);
+					test.setBestGroupIndex(test.getScores().size() - 1);
+					sumB = swapB + sumB;
+					gBArray.add(test);
+				} else
+					swapB = 0;
 			} else if (swapC > swapA && swapC > swapB && gCArray.size() % 6 != 0) {
-				test.setGroupNum(test.getScores().size());
-				test.setBestGroupIndex(test.getScores().size());
-				sumC = swapC + sumC;
-				gCArray.add(test);
+				if (gCArray.size() % 6 != 0) {
+					test.setGroupNum(test.getScores().size());
+					test.setBestGroupIndex(test.getScores().size());
+					sumC = swapC + sumC;
+					gCArray.add(test);
+				} else
+					swapC = 0;
 			} else if (test.getBestGroupIndex() == test.getScores().size() - 2 && gAArray.size() % 6 != 0) {
 				test.setGroupNum(test.getBestGroupIndex());
 				sumA += swapA;
@@ -253,8 +262,6 @@ public class Main2 {
 		System.out.println("A : " + (gAArray.size() / 6) + " : " + sumA / 2);
 		System.out.println("B : " + (gBArray.size() / 6) + " : " + sumB / 2);
 		System.out.println("C : " + (gCArray.size() / 6) + " : " + sumC / 2);
-
-		// has to commented in future
 
 		// System.out.print("GAArray : \n");
 		// for (Soldier printSol : gAArray) {
