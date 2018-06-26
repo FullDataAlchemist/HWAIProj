@@ -1,33 +1,38 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Main2 {
+public class Main2
+{
 
 	/**
 	 * @param args
 	 */
-	static int soldierCounts;
-	static float sumA;
-	static float sumB;
-	static float sumC;
-	static ArrayList<Soldier> mainArray = new ArrayList<Soldier>();
-	static ArrayList<Soldier> gAArray = new ArrayList<Soldier>();
-	static ArrayList<Soldier> gBArray = new ArrayList<Soldier>();
-	static ArrayList<Soldier> gCArray = new ArrayList<Soldier>();
+	static int					soldierCounts;
+	static float				sumA;
+	static float				sumB;
+	static float				sumC;
+	static ArrayList<Soldier>	mainArray	= new ArrayList<>();
+	static ArrayList<Soldier>	gAArray		= new ArrayList<>();
+	static ArrayList<Soldier>	gBArray		= new ArrayList<>();
+	static ArrayList<Soldier>	gCArray		= new ArrayList<>();
 
-	public static void main(String[] args) {
+	public static void main(String[] args)
+	{
+		long startTime = System.nanoTime();
 
 		fillArray();
 		groupMarking();
 
 		// has to commented in future
 		printing();
-
+		long endTime = System.nanoTime();
+		long totalTime = endTime - startTime;
+		System.out.println(totalTime);
 	}
 
-	private static void fillArray() {
-
-		ArrayList<Float> testArray = new ArrayList<Float>();
+	private static void fillArray()
+	{
+		ArrayList<Float> testArray = new ArrayList<>();
 
 		int soldierID = 1;
 		int maxIndex = -1;
@@ -36,23 +41,30 @@ public class Main2 {
 		int maxGroupIndex = -1;
 		float swap;
 
-		try (Scanner scanner = new Scanner(System.in)) {
+		try (Scanner scanner = new Scanner(System.in))
+		{
 			soldierCounts = scanner.nextInt();
 
-			for (int i = 0; i < soldierCounts; i++) {
-				testArray = new ArrayList<Float>();
-				for (int j = 0; j < soldierCounts; j++) {
+			for (int i = 0; i < soldierCounts; i++)
+			{
+				testArray = new ArrayList<>();
+				for (int j = 0; j < soldierCounts; j++)
+				{
 					swap = scanner.nextFloat();
 					testArray.add(swap);
-					if (swap > maxVal) {
+					// finding maximum value for each soldier
+					if (swap > maxVal)
+					{
 						maxVal = swap;
 						maxIndex = j;
 					}
 				}
-				for (int k = 0; k < 3; k++) {
+				for (int k = 0; k < 3; k++)
+				{
 					swap = scanner.nextFloat();
 					testArray.add(swap);
-					if (swap > maxGroupVal) {
+					if (swap > maxGroupVal)
+					{
 						maxGroupVal = swap;
 						maxGroupIndex = soldierCounts + k;
 					}
@@ -60,38 +72,36 @@ public class Main2 {
 				Soldier soldier = new Soldier(testArray, soldierID, maxIndex, maxGroupIndex);
 				mainArray.add(soldier);
 				soldierID++;
-
-				// another Strategy for firstly fast grouping
-				// if (maxGroupIndex == 601) {
-				// gAArray.add(soldier);
-				// } else if (maxGroupIndex == 602) {
-				// gBArray.add(soldier);
-				// } else {
-				// gCArray.add(soldier);
-				// }
-
 			}
 
 		}
 	}
 
-	private static void groupMarking() {
+	private static void groupMarking()
+	{
 
-		ArrayList<Soldier> noGroup = new ArrayList<Soldier>();
+		ArrayList<Soldier> noGroup = new ArrayList<>();
+		Soldier test2 = null;
 
-		for (Soldier test : mainArray) {
-			if (test.getGroupNum() == 0) {
-				Soldier test2 = mainArray.get(test.getBestIndex());
-				if (test2.getGroupNum() == 0 && test2.getBestGroupIndex() == test.getBestGroupIndex()) {
-					if (test2.getBestGroupIndex() == soldierCounts) {
+		for (Soldier test : mainArray)
+		{
+			if (test.getGroupNum() == 0)
+			{
+				test2 = mainArray.get(test.getBestIndex());
+				if (test2.getGroupNum() == 0 && test2.getBestGroupIndex() == test.getBestGroupIndex())
+				{
+					if (test2.getBestGroupIndex() == soldierCounts)
+					{
 						gAArray.add(test);
 						gAArray.add(test2);
-
-					} else if (test2.getBestGroupIndex() == soldierCounts + 1) {
+					}
+					else if (test2.getBestGroupIndex() == soldierCounts + 1)
+					{
 						gBArray.add(test);
 						gBArray.add(test2);
-
-					} else {
+					}
+					else
+					{
 						gCArray.add(test);
 						gCArray.add(test2);
 					}
@@ -99,7 +109,8 @@ public class Main2 {
 					test.setGroupNum(test.getBestGroupIndex());
 					test2.setGroupNum(test2.getBestGroupIndex());
 
-				} else
+				}
+				else
 					noGroup.add(test);
 			}
 		}
@@ -109,134 +120,129 @@ public class Main2 {
 
 	}
 
-	private static void noGroupAnalysis(ArrayList<Soldier> noGroup) {
+	private static void noGroupAnalysis(ArrayList<Soldier> noGroup)
+	{
 		float swapA = 0;
 		float swapB = 0;
 		float swapC = 0;
-		for (Soldier test : noGroup) {
-			for (Soldier testA : gAArray) {
+
+		for (Soldier test : noGroup)
+		{
+			for (Soldier testA : gAArray)
+			{
 				swapA = swapA + test.getScores().get(testA.getSoldierID() - 1)
-						* test.getScores().get(testA.getBestGroupIndex());
+					* test.getScores().get(testA.getBestGroupIndex());
 			}
-			for (Soldier testB : gBArray) {
+			for (Soldier testB : gBArray)
+			{
 				swapB = swapB + test.getScores().get(testB.getSoldierID() - 1)
-						* test.getScores().get(testB.getBestGroupIndex());
+					* test.getScores().get(testB.getBestGroupIndex());
 			}
-			for (Soldier testC : gCArray) {
+			for (Soldier testC : gCArray)
+			{
 				swapC = swapC + test.getScores().get(testC.getSoldierID() - 1)
-						* test.getScores().get(testC.getBestGroupIndex());
+					* test.getScores().get(testC.getBestGroupIndex());
 			}
 
-			if (swapA > swapB && swapA > swapC) {
-				test.setGroupNum(test.getScores().size() - 2);
-				test.setBestGroupIndex(test.getScores().size() - 2);
-				sumA = swapA + sumA;
-				gAArray.add(test);
-
-			} else if (swapB > swapA && swapB > swapC) {
-				test.setGroupNum(test.getScores().size() - 1);
-				test.setBestGroupIndex(test.getScores().size() - 1);
-				sumB = swapB + sumB;
-				gBArray.add(test);
-
-			} else if (swapC > swapA && swapC > swapB) {
-				test.setGroupNum(test.getScores().size());
-				test.setBestGroupIndex(test.getScores().size());
-				sumC = swapC + sumC;
-				gCArray.add(test);
-
-			} else if (test.getBestGroupIndex() == test.getScores().size() - 2) {
-				test.setGroupNum(test.getBestGroupIndex());
-				sumA = swapA + sumA;
-				gAArray.add(test);
-
-			} else if (test.getBestGroupIndex() == test.getScores().size() - 1) {
-				test.setGroupNum(test.getBestGroupIndex());
-				sumB = swapB + sumB;
-				gBArray.add(test);
-
-			} else if (test.getBestGroupIndex() == test.getScores().size()) {
-				test.setGroupNum(test.getBestGroupIndex());
-				sumC = swapC + sumC;
-				gCArray.add(test);
-			}
+			scoreAnalysis(swapA, swapB, swapC, test);
 		}
 
 	}
 
-	private static void sumGeneration() {
+	private static void scoreAnalysis(float swapA, float swapB, float swapC, Soldier test)
+	{
+		if (swapA > swapB && swapA > swapC)
+		{
+			test.setGroupNum(test.getScores().size() - 2);
+			test.setBestGroupIndex(test.getScores().size() - 2);
+			sumA = swapA + sumA;
+			gAArray.add(test);
+		}
+		else if (swapB > swapA && swapB > swapC)
+		{
+			test.setGroupNum(test.getScores().size() - 1);
+			test.setBestGroupIndex(test.getScores().size() - 1);
+			sumB = swapB + sumB;
+			gBArray.add(test);
+		}
+		else if (swapC > swapA && swapC > swapB)
+		{
+			test.setGroupNum(test.getScores().size());
+			test.setBestGroupIndex(test.getScores().size());
+			sumC = swapC + sumC;
+			gCArray.add(test);
+		}
+		else if (test.getBestGroupIndex() == test.getScores().size() - 2)
+		{
+			test.setGroupNum(test.getBestGroupIndex());
+			sumA += swapA;
+			gAArray.add(test);
+		}
+		else if (test.getBestGroupIndex() == test.getScores().size() - 1)
+		{
+			test.setGroupNum(test.getBestGroupIndex());
+			sumB += swapB;
+			gBArray.add(test);
 
-		// float sumtesti = 0;
+		}
+		else if (test.getBestGroupIndex() == test.getScores().size())
+		{
+			test.setGroupNum(test.getBestGroupIndex());
+			sumC += swapC;
+			gCArray.add(test);
+		}
+	}
 
-		for (Soldier aA : gAArray) {
-			for (Soldier aTest : gAArray) {
+	private static void sumGeneration()
+	{
+		for (Soldier aA : gAArray)
+			for (Soldier aTest : gAArray)
 				sumA = sumA + aA.getScores().get(aTest.getSoldierID() - 1) * aA.getScores().get(aA.getBestGroupIndex());
-			}
-		}
-		for (Soldier aB : gBArray) {
-			for (Soldier aTest : gBArray) {
+
+		for (Soldier aB : gBArray)
+			for (Soldier aTest : gBArray)
 				sumB = sumB + aB.getScores().get(aTest.getSoldierID() - 1) * aB.getScores().get(aB.getBestGroupIndex());
-			}
-		}
-		for (Soldier aC : gCArray) {
-			for (Soldier aTest : gCArray) {
+
+		for (Soldier aC : gCArray)
+			for (Soldier aTest : gCArray)
 				sumC = sumC + aC.getScores().get(aTest.getSoldierID() - 1) * aC.getScores().get(aC.getBestGroupIndex());
-			}
-		}
 
 	}
 
-	private static void printing() {
-
+	private static void printing()
+	{
 		System.out.println("sumA : " + sumA / 2);
 		System.out.println("sumB : " + sumB / 2);
 		System.out.println("sumC : " + sumC / 2);
 
 		System.out.print("GAArray : \n");
-		for (Soldier printSol : gAArray) {
+		for (Soldier printSol : gAArray)
+		{
 			System.out.print(printSol.getSoldierID() + "\t");
-			for (float printScore : printSol.getScores()) {
+			for (float printScore : printSol.getScores())
 				System.out.print(printScore + "\t");
-			}
-			System.out.println("\n");
-		}
-		System.out.print("GBArray : \n");
 
-		for (Soldier printSol : gBArray) {
-			System.out.print(printSol.getSoldierID() + "\t");
-			for (float printScore : printSol.getScores()) {
-				System.out.print(printScore + "\t");
-			}
 			System.out.println("\n");
 		}
-		System.out.print("GCArray : \n");
-		for (Soldier printSol : gCArray) {
+
+		System.out.print("GBArray : \n");
+		for (Soldier printSol : gBArray)
+		{
 			System.out.print(printSol.getSoldierID() + "\t");
-			for (float printScore : printSol.getScores()) {
+			for (float printScore : printSol.getScores())
 				System.out.print(printScore + "\t");
-			}
+
+			System.out.println("\n");
+		}
+
+		System.out.print("GCArray : \n");
+		for (Soldier printSol : gCArray)
+		{
+			System.out.print(printSol.getSoldierID() + "\t");
+			for (float printScore : printSol.getScores())
+				System.out.print(printScore + "\t");
+
 			System.out.println("\n");
 		}
 	}
-	// private static void newDA(ArrayList<Soldier> mainArray,ArrayList<Soldier>
-	// gAArray,ArrayList<Soldier>gBArray,ArrayList<Soldier>gCArray) {
-	//
-	// ArrayList<Soldier> noGroup = new ArrayList<Soldier>();
-	//
-	// for (Soldier test : mainArray) {
-	// if (test.getGroupNum() != 0)
-	// continue;
-	// Soldier test2 = mainArray.get(test.getBestIndex() + 1);
-	// if (test2.getGroupNum() != 0 && test2.getBestGroupIndex() ==
-	// test.getBestGroupIndex()) {
-	// test.setGroupNum(test2.getBestGroupIndex());
-	// test2.setGroupNum(test2.getBestGroupIndex());
-	// }
-	// else
-	// noGroup.add(test);
-	// }
-	// for (Soldier test : noGroup) {
-	// if (test.get)
-	// }
-	// }
 }
