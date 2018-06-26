@@ -152,7 +152,7 @@ public class Main2 {
 				gCArray.add(test);
 			}
 		} else {
-			if (swapA > swapB && swapA > swapC) {
+			if (swapA >= swapB && swapA >= swapC) {
 				if (gAArray.size() % 6 != 0) {
 					test.setGroupNum(test.getScores().size() - 2);
 					test.setBestGroupIndex(test.getScores().size() - 2);
@@ -160,7 +160,7 @@ public class Main2 {
 					gAArray.add(test);
 				} else
 					swapA = 0;
-			} else if (swapB > swapA && swapB > swapC && gBArray.size() % 6 != 0) {
+			} else if (swapB >= swapA && swapB >= swapC) {
 				if (gBArray.size() % 6 != 0) {
 					test.setGroupNum(test.getScores().size() - 1);
 					test.setBestGroupIndex(test.getScores().size() - 1);
@@ -168,29 +168,14 @@ public class Main2 {
 					gBArray.add(test);
 				} else
 					swapB = 0;
-			} else if (swapC > swapA && swapC > swapB && gCArray.size() % 6 != 0) {
+			} else if (swapC >= swapA && swapC >= swapB) {
 				if (gCArray.size() % 6 != 0) {
 					test.setGroupNum(test.getScores().size());
 					test.setBestGroupIndex(test.getScores().size());
 					sumC = swapC + sumC;
 					gCArray.add(test);
-				} else
-					swapC = 0;
-			} else if (test.getBestGroupIndex() == test.getScores().size() - 2 && gAArray.size() % 6 != 0) {
-				test.setGroupNum(test.getBestGroupIndex());
-				sumA += swapA;
-				gAArray.add(test);
-			} else if (test.getBestGroupIndex() == test.getScores().size() - 1 && gAArray.size() % 6 != 0) {
-				test.setGroupNum(test.getBestGroupIndex());
-				sumB += swapB;
-				gBArray.add(test);
-
-			} else if (test.getBestGroupIndex() == test.getScores().size() && gAArray.size() % 6 != 0) {
-				test.setGroupNum(test.getBestGroupIndex());
-				sumC += swapC;
-				gCArray.add(test);
+				}
 			}
-
 		}
 	}
 
