@@ -193,7 +193,96 @@ public class Main2 {
 				sumC = sumC + aC.getScores().get(aTest.getSoldierID() - 1) * aC.getScores().get(aC.getBestGroupIndex());
 
 	}
-
+	// private static void noGroupAnalysisOld2(ArrayList<Soldier> noGroup)
+	// {
+	// float swapA = 0;
+	// float swapB = 0;
+	// float swapC = 0;
+	//
+	// Iterator<Soldier> iterator = noGroup.iterator();
+	// while (iterator.hasNext())
+	// {
+	// if (noGroup.size() <= 5)
+	// break;
+	//
+	// for (Soldier test : noGroup)
+	// {
+	// for (Soldier testA : gAArray)
+	// {
+	// swapA = swapA + test.getScores().get(testA.getSoldierID() - 1)
+	// * test.getScores().get(testA.getBestGroupIndex());
+	// }
+	// for (Soldier testB : gBArray)
+	// {
+	// swapB = swapB + test.getScores().get(testB.getSoldierID() - 1)
+	// * test.getScores().get(testB.getBestGroupIndex());
+	// }
+	// for (Soldier testC : gCArray)
+	// {
+	// swapC = swapC + test.getScores().get(testC.getSoldierID() - 1)
+	// * test.getScores().get(testC.getBestGroupIndex());
+	// }
+	//
+	// if (swapA > swapB && swapA > swapC)
+	// {
+	// test.setGroupNum(test.getScores().size() - 2);
+	// test.setBestGroupIndex(test.getScores().size() - 2);
+	// sumA = swapA + sumA;
+	// gAArray.add(test);
+	// iterator.remove();
+	// continue;
+	// }
+	// else if (swapB > swapA && swapB > swapC)
+	// {
+	// test.setGroupNum(test.getScores().size() - 1);
+	// test.setBestGroupIndex(test.getScores().size() - 1);
+	// sumB = swapB + sumB;
+	// gBArray.add(test);
+	// iterator.remove();
+	// continue;
+	// }
+	// else if (swapC > swapA && swapC > swapB)
+	// {
+	// test.setGroupNum(test.getScores().size());
+	// test.setBestGroupIndex(test.getScores().size());
+	// sumC = swapC + sumC;
+	// gCArray.add(test);
+	// iterator.remove();
+	// continue;
+	// }
+	// else if (test.getBestGroupIndex() == test.getScores().size() - 2)
+	// {
+	// test.setGroupNum(test.getBestGroupIndex());
+	// sumA += swapA;
+	// gAArray.add(test);
+	// iterator.remove();
+	// continue;
+	// }
+	// else if (test.getBestGroupIndex() == test.getScores().size() - 1)
+	// {
+	// test.setGroupNum(test.getBestGroupIndex());
+	// sumB += swapB;
+	// gBArray.add(test);
+	// iterator.remove();
+	// continue;
+	//
+	// }
+	// else if (test.getBestGroupIndex() == test.getScores().size())
+	// {
+	// test.setGroupNum(test.getBestGroupIndex());
+	// sumC += swapC;
+	// gCArray.add(test);
+	// iterator.remove();
+	// continue;
+	// }
+	// }
+	//
+	// }
+	//
+	//
+	// // alan vaghti inja berese yani no group 5 ta ya kamtar ozv dare
+	//
+	// }
 	// private static void reMarking() {
 
 	// float swapA = 0;
